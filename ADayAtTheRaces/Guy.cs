@@ -10,7 +10,7 @@ namespace ADayAtTheRaces
     public class Guy
     {
         public string Name; //The guy's name
-        public Bet MyBet; //An instance of Bet that has his bet
+        public Bet MyBet = null; //An instance of Bet that has his bet
         public int Cash; //How much cash he has
 
         //The last two fields are the guys GUI controls on the form 
@@ -19,16 +19,36 @@ namespace ADayAtTheRaces
 
         public void UpdateLabels()
         {
-            MyLabel = MyBet;
+            MyLabel.Text = MyBet.GetDescription();
             MyRadioButton.Text = "Joe has " + Cash + "bucks";
         }
+            
+        
         public void ClearBet()
         {
-            MyBet = 0;
+            MyBet = null;
         }
         public bool PlaceBet(int BetAmount, int DogToWin)
         {
-
+            if (Cash >= BetAmount)
+            {
+                Cash = Cash - BetAmount;
+                BetAmount = MyBet.Amount;
+                DogToWin = MyBet.Dog;
+                UpdateLabels();
+                return true;
+            }
+            else 
+            {
+                MessageBox.Show("You do not have enough money for this bet, please try again");
+            }
+            return false;
         }
+
+        public void Collect(int Winner)
+        {
+            Cash += MyBet.PayOut(Winner);
+        }
+
     }
 }

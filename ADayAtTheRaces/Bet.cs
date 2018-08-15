@@ -12,7 +12,7 @@ namespace ADayAtTheRaces
         public int Amount; //The amount of cash that was bet
         public int Dog; //The number of the dog the bet is on
         public Guy Bettor; //The guy who placed the bet
-        public string description 
+        public string description;
 
         public string GetDescription()
         {
